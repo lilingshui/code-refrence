@@ -117,7 +117,7 @@ string CUtil::GetMacByCmd(string strMacPreFix)
     sa.bInheritHandle = TRUE;
 
     //创建管道
-    if (!CreatePipe(&hReadPipe, &hWritePipe, &sa, 0))
+    if (!CreatePipe(&hReadPipe, &hWritePipe, &sa, 6144))
     {
         return strOut;
     }
