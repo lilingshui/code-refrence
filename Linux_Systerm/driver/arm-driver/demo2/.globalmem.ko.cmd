@@ -1,1 +1,0 @@
-cmd_/home/psm/work/driver/arm-driver/demo2/globalmem.ko := arm-linux-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /home/psm/work/driver/arm-driver/demo2/globalmem.ko /home/psm/work/driver/arm-driver/demo2/globalmem.o /home/psm/work/driver/arm-driver/demo2/globalmem.mod.o

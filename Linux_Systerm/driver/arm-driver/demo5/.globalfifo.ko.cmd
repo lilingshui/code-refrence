@@ -1,1 +1,0 @@
-cmd_/home/psm/work/driver/arm-driver/demo5/globalfifo.ko := arm-linux-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /home/psm/work/driver/arm-driver/demo5/globalfifo.ko /home/psm/work/driver/arm-driver/demo5/globalfifo.o /home/psm/work/driver/arm-driver/demo5/globalfifo.mod.o

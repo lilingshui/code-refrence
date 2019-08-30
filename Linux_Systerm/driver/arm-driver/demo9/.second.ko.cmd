@@ -1,1 +1,0 @@
-cmd_/home/psm/work/driver/arm-driver/demo7/second.ko := arm-linux-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /home/psm/work/driver/arm-driver/demo7/second.ko /home/psm/work/driver/arm-driver/demo7/second.o /home/psm/work/driver/arm-driver/demo7/second.mod.o
