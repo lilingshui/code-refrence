@@ -70,13 +70,16 @@ int main()
 	CHK_RV(rv, "SSL_set_fd");
 	rv = SSL_accept(ssl);
 	CHK_RV(rv, "SSL_accpet");
- 
-	rv = SSL_read(ssl, buf, sizeof(buf) - 1);
-	CHK_SSL(rv, "SSL_read");
-	buf[rv] = '\0';
-	printf("Got %d chars :%s\n", rv, buf);
-	rv = SSL_write(ssl, "I accept your request", strlen("I accept your request"));
-	CHK_SSL(rv, "SSL_write");
+
+	while(1) {
+		rv = SSL_read(ssl, buf, sizeof(buf) - 1);
+		CHK_SSL(rv, "SSL_read");
+		buf[rv] = '\0';
+		printf("Got %d chars :%s\n", rv, buf);
+		rv = SSL_write(ssl, "I accept your request", strlen("I accept your request"));
+		CHK_SSL(rv, "SSL_write");
+		sleep(1);
+	}
  
 	close(accept_sd);
 	SSL_free(ssl);

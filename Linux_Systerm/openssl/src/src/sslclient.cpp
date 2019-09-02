@@ -26,6 +26,7 @@ int main()
 	SSL_CTX *ctx = NULL;
 	SSL *ssl = NULL;
 	char buf[4096];
+	char sendbuf[4096];
  
 	rv = SSL_library_init();
 	CHK_RV(rv, "SSL_library_init");
@@ -39,7 +40,7 @@ int main()
 	memset(&socketAddrClient, 0, sizeof(socketAddrClient));
 	socketAddrClient.sin_family = AF_INET;
 	socketAddrClient.sin_port = htons(8443);
-	socketAddrClient.sin_addr.s_addr = inet_addr("127.0.0.1");
+	socketAddrClient.sin_addr.s_addr = inet_addr("192.168.233.242");
  
 	err = connect(listen_sd, (struct sockaddr *)&socketAddrClient, sizeof(socketAddrClient));
 	CHK_ERR(err, "connect");
@@ -49,13 +50,19 @@ int main()
 	CHK_RV(rv, "SSL_set_fd");
 	rv = SSL_connect(ssl);
 	CHK_RV(rv, "SSL_connect");
- 
-	rv = SSL_write(ssl, "Hello, I am the client", strlen("Hello, I am the client"));
-	CHK_SSL(rv, "SSL_write");
-	rv = SSL_read(ssl, buf, sizeof(buf) - 1);
-	CHK_SSL(rv, "SSL_read");
-	buf[rv] = '\0';
-	printf("Got %d chars :%s\n", rv, buf);
+
+	while(1)
+	{
+		memset(sendbuf,0,sizeof(sendbuf));
+                fgets(sendbuf, sizeof(sendbuf), stdin);
+		rv = SSL_write(ssl, sendbuf, strlen(sendbuf));
+		CHK_SSL(rv, "SSL_write");
+		rv = SSL_read(ssl, buf, sizeof(buf) - 1);
+		CHK_SSL(rv, "SSL_read");
+		buf[rv] = '\0';
+		printf("Got %d chars :%s\n", rv, buf);
+		sleep(1);
+	}
  
 	SSL_shutdown(ssl);
 	close(listen_sd);

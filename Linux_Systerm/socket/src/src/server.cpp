@@ -13,7 +13,7 @@
 #include <list>
  
 #define PORT 7000
-#define IP "127.0.0.1"
+#define IP "192.168.233.242"
  
 int s;
 struct sockaddr_in servaddr;
