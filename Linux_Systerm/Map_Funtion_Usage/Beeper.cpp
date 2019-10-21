@@ -55,29 +55,31 @@ int CBeeper::set_properties_callback_cb(const leda_device_data_t properties[],
         /* 作为演示，仅打印出设置属性信息 */
         log_i(TAG_NAME, "set_property type:%d %s: %s\r\n", properties[i].type, properties[i].key, properties[i].value);
 	
-		if (!strcmp("beepSwitch", properties[i].key))
+		if (!strcmp("Workingswitch", properties[i].key))
 		{
+			/*
 			int fd = open(BEEP_DEV_NAME, O_RDWR);
 			
 			if(fd < 0) {
 				log_e(TAG_NAME, "===== close the beeper ====\r\n");
 				return LE_SUCCESS;
 			}
-		
+			*/
+			
 			if (!strcmp("0", properties[i].value))
 			{
 				m_swStatus = false;
-				ioctl(fd, IOC_WFET_BEEP_ONOFF, 0);
+				//ioctl(fd, IOC_WFET_BEEP_ONOFF, 0);
 				log_i(TAG_NAME, "===== close the beeper ====\r\n");
 			}
 			else if (!strcmp("1", properties[i].value))
 			{
 				m_swStatus = true;
-				ioctl(fd, IOC_WFET_BEEP_ONOFF, 1);
+				//ioctl(fd, IOC_WFET_BEEP_ONOFF, 1);
 				log_i(TAG_NAME, "===== open the beeper ====\r\n");
 			}
 			
-			close(fd);
+			//close(fd);
 		}	
     }
 

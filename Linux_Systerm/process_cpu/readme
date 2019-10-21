@@ -1,0 +1,3 @@
+#这个程序主要是用来演示将一个进程绑定到某个CPU上执行
+
+gcc main.c -o main -lpthread

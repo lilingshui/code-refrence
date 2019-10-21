@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wasion>
+  <server address="192.168.221.250"/>
+  <timezone value="8"/>
+</wasion>

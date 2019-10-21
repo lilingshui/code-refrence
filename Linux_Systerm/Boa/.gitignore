@@ -1,0 +1,6 @@
+!.gitignore
+output/*
+*.patch
+*.o
+.cgi
+*~

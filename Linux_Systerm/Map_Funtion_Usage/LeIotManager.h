@@ -13,6 +13,10 @@ using namespace std;
 
 #define MAX_DEVICE_NUM      32
 
+typedef map<string, PGetCallback> 		GetMap;
+typedef map<string, PSetCallback> 		SetMap;
+typedef map<string, PServiceCallback> 	ServiceMap;
+
 class CLeIotManager
 {
 private:
@@ -32,8 +36,12 @@ public:
 	void RegisterGetCallback(string strKey, PGetCallback pFunc);
 	void RegisterServiceCallback(string strKey, PServiceCallback pFunc);
 	
+	static GetMap CreateGetMap();
+	static SetMap CreateSetMap();
+	static ServiceMap CreateServiceMap();
+	
 protected:
-	int Get_and_parse_deviceconfig(const char* module_name);
+	int Get_and_parse_deviceconfig();
 	static int get_properties_callback_cb(device_handle_t dev_handle, 
                                leda_device_data_t properties[], 
                                int properties_count, 
@@ -53,11 +61,11 @@ protected:
 
 private:
 	static CLeIotManager* 			m_pInstance;
-	static map<string, PGetCallback> 		m_GetCallBack;
-	static map<string, PSetCallback> 		m_SetCallBack;
-	static map<string, PServiceCallback> 		m_ServiceCallBack;
+	static GetMap 					m_GetCallBack;
+	static SetMap					m_SetCallBack;
+	static ServiceMap				m_ServiceCallBack;
 	device_handle_t 				m_devHandleList[MAX_DEVICE_NUM];
-	int 					m_ndevHandleCount;	
+	int 							m_ndevHandleCount;	
 };
 
 #endif //__LEIOTMANAGER_H__

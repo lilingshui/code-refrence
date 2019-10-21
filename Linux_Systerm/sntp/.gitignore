@@ -1,0 +1,7 @@
+!.gitignore
+bin/*
+output/*
+*.o
+./libs/xmlutil/create_config_file
+./libs/xmlutil/demo
+./libs/xmlutil/libxmlutil.so
