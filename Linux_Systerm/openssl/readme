@@ -1,3 +1,7 @@
 1>生成私钥和公钥
 openssl req -newkey rsa:2048 -nodes -keyout serverKey.pem -x509 -days 365 -out serverCert.cer -subj "/C=CN/ST=GD/L=GZ/O=abc/OU=defg/CN=hijk/emailAddress=132456.com"
 2>运行
+在生成的bin文件夹中，有sslserver以及sslclient，以及相关的密钥文件
+运行sslserver会打开一个加密的socket通道，等待client来连接
+打开sslclient会创建一个连接连到server端，此时两方就可以通信了。
+

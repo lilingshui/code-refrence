@@ -40,7 +40,7 @@ int main()
 	memset(&socketAddrClient, 0, sizeof(socketAddrClient));
 	socketAddrClient.sin_family = AF_INET;
 	socketAddrClient.sin_port = htons(8443);
-	socketAddrClient.sin_addr.s_addr = inet_addr("192.168.233.242");
+	socketAddrClient.sin_addr.s_addr = inet_addr("127.0.0.1");
  
 	err = connect(listen_sd, (struct sockaddr *)&socketAddrClient, sizeof(socketAddrClient));
 	CHK_ERR(err, "connect");
