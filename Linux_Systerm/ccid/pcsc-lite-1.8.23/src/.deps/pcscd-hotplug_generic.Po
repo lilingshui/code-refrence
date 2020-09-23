@@ -1,0 +1,11 @@
+pcscd-hotplug_generic.o: hotplug_generic.c \
+ /opt/gcc-linaro-5.3.1-2016.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/include/stdc-predef.h \
+ ../config.h ../src/PCSC/pcsclite.h ../src/PCSC/wintypes.h
+
+/opt/gcc-linaro-5.3.1-2016.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/include/stdc-predef.h:
+
+../config.h:
+
+../src/PCSC/pcsclite.h:
+
+../src/PCSC/wintypes.h:

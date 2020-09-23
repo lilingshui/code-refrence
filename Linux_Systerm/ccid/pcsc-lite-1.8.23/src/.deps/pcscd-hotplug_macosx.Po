@@ -1,0 +1,11 @@
+pcscd-hotplug_macosx.o: hotplug_macosx.c \
+ /opt/gcc-linaro-5.3.1-2016.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/include/stdc-predef.h \
+ ../config.h misc.h pcscd.h
+
+/opt/gcc-linaro-5.3.1-2016.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/include/stdc-predef.h:
+
+../config.h:
+
+misc.h:
+
+pcscd.h:

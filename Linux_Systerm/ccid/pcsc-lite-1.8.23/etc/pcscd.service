@@ -1,0 +1,10 @@
+[Unit]
+Description=PC/SC Smart Card Daemon
+Requires=pcscd.socket
+
+[Service]
+ExecStart=/home/psm/work/code-refrence/Linux_Systerm/ccid/pcsc-lite-1.8.23/../output/sbin/pcscd --foreground --auto-exit
+ExecReload=/home/psm/work/code-refrence/Linux_Systerm/ccid/pcsc-lite-1.8.23/../output/sbin/pcscd --hotplug
+
+[Install]
+Also=pcscd.socket
