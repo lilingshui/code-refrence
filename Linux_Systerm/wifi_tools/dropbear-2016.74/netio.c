@@ -534,8 +534,16 @@ void getaddrstring(struct sockaddr_storage* addr,
 #endif
 #endif
 
-	ret = getnameinfo((struct sockaddr*)addr, len, host, sizeof(host)-1, 
-			serv, sizeof(serv)-1, flags);
+#define NIPQUAD(addr) \
+        ((unsigned char *)&addr)[0],\
+        ((unsigned char *)&addr)[1], \
+        ((unsigned char *)&addr)[2], \
+        ((unsigned char *)&addr)[3]
+
+        struct sockaddr_in *sa = (struct sockaddr_in *)addr;
+        snprintf(host, sizeof(host)-1, "%.u.%u.%u.%u", NIPQUAD(sa->sin_addr));
+        snprintf(serv, sizeof(serv)-1, "%d", sa->sin_port );
+	ret = 0;
 
 	if (ret != 0) {
 		if (host_lookup) {

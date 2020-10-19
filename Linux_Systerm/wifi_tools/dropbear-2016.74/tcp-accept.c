@@ -67,12 +67,15 @@ static void tcp_acceptor(struct Listener *listener, int sock) {
 		return;
 	}
 
-	if (getnameinfo((struct sockaddr*)&addr, len, ipstring, sizeof(ipstring),
-				portstring, sizeof(portstring), 
-				NI_NUMERICHOST | NI_NUMERICSERV) != 0) {
-		m_close(fd);
-		return;
-	}
+#define NIPQUAD(addr) \ 
+	((unsigned char *)&addr)[0],\
+	((unsigned char *)&addr)[1], \ 
+	((unsigned char *)&addr)[2], \ 
+	((unsigned char *)&addr)[3] 
+	
+	struct sockaddr_in *sa = (struct sockaddr_in *)&addr; 
+ 	snprintf(ipstring, sizeof(ipstring)-1, "%.u.%u.%u.%u", NIPQUAD(sa->sin_addr)); 
+ 	snprintf(portstring, sizeof(portstring)-1, "%d", sa->sin_port ); 
 
 	if (send_msg_channel_open_init(fd, tcpinfo->chantype) == DROPBEAR_SUCCESS) {
 		char* addr = NULL;
