@@ -1,0 +1,7 @@
+!.gitignore
+bin/*
+output/*
+*.patch
+hadt*.tar.gz
+HardAssistedDetectionTool*.tar.gz
+*~
