@@ -1,0 +1,7 @@
+1-需要将/home/www目录的权限改为777
+chmod 777 www/ -R
+2-将althttpd拷贝到/home/sysadm目录下
+chmod +x ./althttpd 
+./althttpd -root /home/www/ -port 80 -logfile /var/log/http.log -user sysadm
+3-在PC机的浏览器上输入终端的地址即可
+http://192.168.232.56/index.html
