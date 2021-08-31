@@ -1,0 +1,5 @@
+在这个例子中，直接运行make即可
+如果需要改变编译工具链，需要进入相应的目录
+如src，tests文件夹，修改里面的Makefile脚本，改变里面的编译工具链。
+如：
+CC?=aarch64-linux-gnu-gcc

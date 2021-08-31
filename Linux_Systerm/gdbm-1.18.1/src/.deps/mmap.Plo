@@ -1,0 +1,7 @@
+mmap.lo: mmap.c \
+ /opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/include/stdc-predef.h \
+ ../autoconf.h
+
+/opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/include/stdc-predef.h:
+
+../autoconf.h:
