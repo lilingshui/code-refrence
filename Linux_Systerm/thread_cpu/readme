@@ -1,0 +1,6 @@
+#这个程序主要是用来演示将一个线程绑定到某个CPU上执行
+
+gcc main.c -o thread_test -lpthread
+
+ps -To 'pid,lwp,psr,cmd' -p 进程ID
+
