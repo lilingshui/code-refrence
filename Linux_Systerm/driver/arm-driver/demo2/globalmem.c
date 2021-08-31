@@ -190,10 +190,11 @@ static void globalmem_setup_cdev(struct globalmem_dev *dev, int index)
 int globalmem_init(void)
 {
 	int result;
-	dev_t devno = MKDEV(globalmem_major, 0);
+	dev_t devno = 0;
 
 	/* 申请设备号*/
 	if (globalmem_major)
+		devno = MKDEV(globalmem_major, 0);
 		result = register_chrdev_region(devno, 1, "globalmem");
 	else  /* 动态申请设备号 */
 	{
