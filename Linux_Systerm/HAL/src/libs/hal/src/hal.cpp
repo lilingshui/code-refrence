@@ -23,7 +23,7 @@ int32 hw_get_module(const char *id, const char *path, struct tag_HW_MODULE **mod
 	void *handle = NULL;
 	struct tag_HW_MODULE *hmi = NULL;
 
-       	const char *sym = HAL_MODULE_INFO_SYM_AS_STR;
+	const char *sym = HAL_MODULE_INFO_SYM_AS_STR;
 	handle = dlopen(path, RTLD_NOW);
 	if (handle == NULL) 
 	{

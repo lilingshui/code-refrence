@@ -10,9 +10,9 @@
 #include "ioctl.h"
 
 CLeIotManager* CLeIotManager::m_pInstance  = NULL;
-map<string, PGetCallback>	CLeIotManager::m_GetCallBack={{"test", NULL}};
-map<string, PSetCallback>	CLeIotManager::m_SetCallBack={{"test", NULL}};
-map<string, PServiceCallback>	CLeIotManager::m_ServiceCallBack={{"test", NULL}};
+map<string, PGetCallback>	CLeIotManager::m_GetCallBack = CLeIotManager::CreateGetMap();
+map<string, PSetCallback>	CLeIotManager::m_SetCallBack = CLeIotManager::CreateSetMap();
+map<string, PServiceCallback>	CLeIotManager::m_ServiceCallBack = CLeIotManager::CreateServiceMap();
 
 CLeIotManager::CLeIotManager()
 {
@@ -42,30 +42,41 @@ void CLeIotManager::ReleaseInstance()
 	}
 }
 
+GetMap CLeIotManager::CreateGetMap()
+{
+	GetMap tmp_map;
+	tmp_map.insert(pair<string, PGetCallback>("INVALID", NULL)); 
+	return tmp_map;
+}
+
+SetMap CLeIotManager::CreateSetMap()
+{
+	SetMap tmp_map;
+	tmp_map.insert(pair<string, PSetCallback>("INVALID", NULL)); 
+	return tmp_map;
+}
+
+ServiceMap CLeIotManager::CreateServiceMap()
+{
+	ServiceMap tmp_map;
+	tmp_map.insert(pair<string, PServiceCallback>("INVALID", NULL)); 
+	return tmp_map;
+}
+
 bool CLeIotManager::Init()
 {
 	bool    ret = false;
-	char*  module_name = NULL;
-
 	log_init(TAG_NAME, LOG_STDOUT, LOG_LEVEL_DEBUG, LOG_MOD_BRIEF);
 	log_i(TAG_NAME, "ttu startup\r\n");
 
-    /* 初始驱动 */
-    module_name = leda_get_module_name();
-    if (NULL == module_name)
-    {
-        log_e(TAG_NAME, "the driver no deploy or deploy failed\r\n");
-        return ret;
-    }
-
-    if (LE_SUCCESS != (ret = leda_init(module_name, 5)))
+    if (LE_SUCCESS != (ret = leda_init(5)))
     {
         log_e(TAG_NAME, "leda_init failed\r\n");
         return ret;
     }
-
-    /* 解析配置 */
-    if (LE_SUCCESS != (ret = Get_and_parse_deviceconfig(module_name)))
+	
+	/* 解析配置 */
+    if (LE_SUCCESS != (ret = Get_and_parse_deviceconfig()))
     {
         log_e(TAG_NAME, "parse device config failed\r\n");
         return ret;
@@ -79,62 +90,64 @@ void CLeIotManager::Exit()
 	leda_exit();
 }
 
-int CLeIotManager::Get_and_parse_deviceconfig(const char* module_name)
+int CLeIotManager::Get_and_parse_deviceconfig()
 {
-    int ret = LE_SUCCESS;
-    int size = 0;
-    char *device_config = NULL;
-    char *productKey = NULL;
-    char *deviceName = NULL;
-    cJSON *root = NULL;
-    cJSON *object = NULL;
-    cJSON *item = NULL;
-    cJSON *result = NULL;
+	int                         ret             = LE_SUCCESS;
+    int                         size            = 0;
+    char                        *device_config  = NULL;
+
+    char                        *productKey     = NULL;
+    char                        *deviceName     = NULL;
+
+    cJSON                       *devices           = NULL;
+    cJSON                       *item           = NULL;
+    cJSON                       *result         = NULL;
 
     leda_device_callback_t      device_cb;
     device_handle_t             dev_handle      = -1;
 
     /* 获取驱动设备配置 */
-    size = leda_get_config_size(module_name);
+    size = leda_get_device_info_size();
     if (size >0)
     {
         device_config = (char*)malloc(size);
         if (NULL == device_config)
         {
-            log_e(TAG_NAME, "allocate memory failed\r\n");
+            log_e(TAG_NAME, "allocate memory failed\n");
             return LE_ERROR_INVAILD_PARAM;
         }
 
-        if (LE_SUCCESS != (ret = leda_get_config(module_name, device_config, size)))
+        if (LE_SUCCESS != (ret = leda_get_device_info(device_config, size)))
         {
-            log_e(TAG_NAME, "get device config failed\r\n");
+            log_e(TAG_NAME, "get device config failed\n");
             return ret;
         }
     }
 
     /* 解析驱动设备配置 */
-    root = cJSON_Parse(device_config);
-    if (NULL == root)
+    devices = cJSON_Parse(device_config);
+    if (NULL == devices)
     {
-        log_e(TAG_NAME, "device config parser failed\r\n");
+        log_e(TAG_NAME, "device config parser failed\n");
         return LE_ERROR_INVAILD_PARAM;
     }
 
-    object = cJSON_GetObjectItem(root, "deviceList");
-    cJSON_ArrayForEach(item, object)
+    cJSON_ArrayForEach(item, devices)
     {
         if (cJSON_Object == item->type)
         {
-            /* 按照配置格式解析内容 */
-            result = cJSON_GetObjectItem(item, "productKey");
-            productKey = result->valuestring;
+            /* 解析配置内容 */
+            result      = cJSON_GetObjectItem(item, "productKey");
+            productKey  = result->valuestring;
             
-            result = cJSON_GetObjectItem(item, "deviceName");
-            deviceName = result->valuestring;
+            result      = cJSON_GetObjectItem(item, "deviceName");
+            deviceName  = result->valuestring;
 
-            /* TODO: 解析设备自定义配置信息custom，该字段内容来源在云端控制台的驱动配置项。由于该字段内容
-               为字符串的json内容，所以在去除custom的value值后，需要再次进行json解析操作。
-            */
+            result      = cJSON_GetObjectItem(item, "custom");
+            if (NULL != result)
+            {
+                log_i(TAG_NAME, "custom content: %s\n", cJSON_PrintUnformatted(result));
+            }
 
             /* 注册并上线设备 */
             device_cb.get_properties_cb            = &(CLeIotManager::get_properties_callback_cb);
@@ -145,21 +158,21 @@ int CLeIotManager::Get_and_parse_deviceconfig(const char* module_name)
             dev_handle = leda_register_and_online_by_device_name(productKey, deviceName, &device_cb, NULL);
             if (dev_handle < 0)
             {
-                log_e(TAG_NAME, "product:%s device:%s register failed\r\n", productKey, deviceName);
+                log_e(TAG_NAME, "product:%s device:%s register failed\n", productKey, deviceName);
                 continue;
             }
+
             m_devHandleList[m_ndevHandleCount++] = dev_handle;
-            log_i(TAG_NAME, "product:%s device:%s register success\r\n", productKey, deviceName);
+            log_i(TAG_NAME, "product:%s device:%s register success\n", productKey, deviceName);
         }
     }
 
-    if (NULL != root)
+    if (NULL != devices)
     {
-        cJSON_Delete(root);
+        cJSON_Delete(devices);
     }
 
     free(device_config);
-
     return LE_SUCCESS;
 }
 
