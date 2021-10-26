@@ -1,0 +1,4 @@
+  32;  127;   19; 0xff7ff004; rootfs.img
+ 448;  639;    3; 0xff7ff009; home.img
+ 640; 3563;    1; 0xff7ff092; data0.img
+3564; 4075;    1; 0xff7ff019; data1.img

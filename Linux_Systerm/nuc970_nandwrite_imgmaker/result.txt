@@ -1,0 +1,151 @@
+hpchen0@ubuntu:~/nuc970/nuc970_nandwrite_imgmaker$ ./nuc970ImgMaker_demo.sh 
+argv[0]=./Src/nuc970ImgMaker
+argv[1]=-O
+argv[2]=../nuc970_nandwrite_imgmaker/nand_golden
+argv[3]=-t
+argv[4]=../nuc970_nandwrite_imgmaker/nuc970.ini
+argv[5]=-p
+argv[6]=2048
+argv[7]=-o
+argv[8]=64
+argv[9]=-s
+argv[10]=64
+argv[11]=-b
+argv[12]=1024
+argv[13]=-P
+argv[14]=../nuc970_nandwrite_imgmaker/u-boot-spl.bin -t 2 -b 4 -O 0 -S 0x80000
+argv[15]=-P
+argv[16]=../nuc970_nandwrite_imgmaker/u-boot.bin -t 0 -b 8 -O 0xa0000 -S 0x60000
+argv[17]=-P
+argv[18]=../nuc970_nandwrite_imgmaker/nuc970image -t 0 -b 8 -O 0x160000 -S 0x1400000
+nuc970ImgMaker Version: 1.0
+Compilation Date / Time.....: Aug 26 2015 / 09:59:49
+
+=====> Parsing ../nuc970_nandwrite_imgmaker/nuc970.ini as Boot Code Optional Setting INI file <=====
+** Process ../nuc970_nandwrite_imgmaker/nuc970.ini file **
+  OptionalMarker = 0xAA55AA55
+  Counter        = 42
+  Pair 0: Address = 0xB0000220, Value = 0x01000000
+  Pair 1: Address = 0xB0000264, Value = 0xC0000018
+  Pair 2: Address = 0xB0000220, Value = 0x01000018
+  Pair 3: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 4: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 5: Address = 0xB0001808, Value = 0x00008030
+  Pair 6: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 7: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 8: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 9: Address = 0xB0001800, Value = 0x00030476
+  Pair 10: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 11: Address = 0xB0001804, Value = 0x00000021
+  Pair 12: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 13: Address = 0xB0001804, Value = 0x00000023
+  Pair 14: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 15: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 16: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 17: Address = 0xB0001804, Value = 0x00000027
+  Pair 18: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 19: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 20: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 21: Address = 0xB0001820, Value = 0x00000000
+  Pair 22: Address = 0xB0001824, Value = 0x00000000
+  Pair 23: Address = 0xB000181C, Value = 0x00004000
+  Pair 24: Address = 0xB0001818, Value = 0x00000332
+  Pair 25: Address = 0xB0001810, Value = 0x00000006
+  Pair 26: Address = 0xB0001804, Value = 0x00000027
+  Pair 27: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 28: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 29: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 30: Address = 0xB0001804, Value = 0x0000002B
+  Pair 31: Address = 0xB0001804, Value = 0x0000002B
+  Pair 32: Address = 0xB0001804, Value = 0x0000002B
+  Pair 33: Address = 0xB0001818, Value = 0x00000232
+  Pair 34: Address = 0xB000181C, Value = 0x00004781
+  Pair 35: Address = 0xB000181C, Value = 0x00004401
+  Pair 36: Address = 0xB0001804, Value = 0x00000020
+  Pair 37: Address = 0xB0001834, Value = 0x00888820
+  Pair 38: Address = 0x55AA55AA, Value = 0x00000001
+  Pair 39: Address = 0xB0000218, Value = 0x00000008
+  Pair 40: Address = 0xB8003160, Value = 0x00008000
+  Pair 41: Address = 0xB80031A0, Value = 0x00008000
+
+Create u-boot-spl at block 0 page 0, buffer address at 0x00000000
+	Pad 0xFF for uboot-spl from block 0 page 22, image file address 0xb580
+
+Write ../nuc970_nandwrite_imgmaker/u-boot.bin to block 5 page 0, memory address at 0x000A5000
+	Pad 0xFF for ../nuc970_nandwrite_imgmaker/u-boot.bin from block 8 page 63, memory address at 0x1287c0
+
+Write ../nuc970_nandwrite_imgmaker/nuc970image to block 11 page 0, memory address at 0x0016B000
+	Pad 0xFF for ../nuc970_nandwrite_imgmaker/nuc970image from block 143 page 62, memory address at 0x128ef80
+
+Chip: NUC970 Platform
+Output folder: ../nuc970_nandwrite_imgmaker/nand_golden
+nuc970.ini filepath: ../nuc970_nandwrite_imgmaker/nuc970.ini
+All image number: 3
+Page size: 2048
+OOB size: 64
+Page per block: 64
+Block number: 1024
+[0]: ../nuc970_nandwrite_imgmaker/u-boot-spl.bin
+	BCH Error bits: 4
+	Offset in MTD table: 0(0x0)
+	Size in MTD table: 524288(0x80000)
+	Skip all 0xff page: no
+	Image type: IMG_UBOOT
+	Image name: u-boot-spl.bin
+	Image file length: 43172(0xA8A4)
+	Image start block: 0(0x0)
+	Image end block: 3(0x3)
+
+	Golden image information:
+	Path: ../nuc970_nandwrite_imgmaker/nand_golden/u-boot-spl.bin.golden
+	At buffer address(Start_block*Page_per_block*(OOB_size+Page_size)): 0x00000000 
+	Block number(File_length/Page_per_block/(OOB_size+Page_size)): 0x1(1) 
+
+[1]: ../nuc970_nandwrite_imgmaker/u-boot.bin
+	BCH Error bits: 8
+	Offset in MTD table: 655360(0xA0000)
+	Size in MTD table: 393216(0x60000)
+	Skip all 0xff page: no
+	Image type: IMG_DATA
+	Image name: u-boot.bin
+	Image file length: 521132(0x7F3AC)
+	Image start block: 5(0x5)
+	Image end block: 7(0x7)
+
+	Golden image information:
+	Path: ../nuc970_nandwrite_imgmaker/nand_golden/u-boot.bin.golden
+	At buffer address(Start_block*Page_per_block*(OOB_size+Page_size)): 0x000A5000 
+	Block number(File_length/Page_per_block/(OOB_size+Page_size)): 0x4(4) 
+
+[2]: ../nuc970_nandwrite_imgmaker/nuc970image
+	BCH Error bits: 8
+	Offset in MTD table: 1441792(0x160000)
+	Size in MTD table: 20971520(0x1400000)
+	Skip all 0xff page: no
+	Image type: IMG_DATA
+	Image name: nuc970image
+	Image file length: 17427968(0x109EE00)
+	Image start block: 11(0xB)
+	Image end block: 170(0xAA)
+
+	Golden image information:
+	Path: ../nuc970_nandwrite_imgmaker/nand_golden/nuc970image.golden
+	At buffer address(Start_block*Page_per_block*(OOB_size+Page_size)): 0x0016B000 
+	Block number(File_length/Page_per_block/(OOB_size+Page_size)): 0x85(133) 
+
+export_elnec_csv: Export CSV.
+   0;    3;    1; 0xff7ff003; u-boot-spl.bin
+   5;    7;    4; 0xff7ff000; u-boot.bin
+  11;  170;  133; 0xff7ff008; nuc970image
+
+To decide maximum allowed invalid block number rule:
+	 (1) The image type is UBOOT, the value is 3.
+	 (2) others is total block number*0.05 .
+
+=========================================================================
+All golden images are created.
+All parity code in spare area are produced by nuc970ImgMaker.
+Now, Please put these files into memory by your NAND programmer.
+=========================================================================
+hpchen0@ubuntu:~/nuc970/nuc970_nandwrite_imgmaker$ 
+
