@@ -3,7 +3,7 @@
 #include "mosquitto.h"
 #include <string.h>
  
-#define HOST "localhost"  //可以改为自己MQTT的服务器地址 如：#define HOST "l06.xxx.xxx.xxx" 
+#define HOST "172.17.0.1"  //可以改为自己MQTT的服务器地址 如：#define HOST "l06.xxx.xxx.xxx" 
 #define PORT  1883        //端口号
 #define KEEP_ALIVE 60
 #define MSG_MAX_SIZE  512

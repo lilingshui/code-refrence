@@ -1,4 +1,4 @@
-export CROSS_COMPILE=
+export CROSS_COMPILE=arm-linux-gnueabihf-
 export CC=${CROSS_COMPILE}gcc
 export CXX=${CROSS_COMPILE}g++
 export LD=${CROSS_COMPILE}ld
@@ -6,7 +6,7 @@ export AR=${CROSS_COMPILE}ar
 export RANLIB=${CROSS_COMPILE}ranlib
 export STRIP=${CROSS_COMPILE}strip
 
-LDFLAGS = -lmosquitto
+LDFLAGS = -L ./ -lmosquitto -lssl -lcrypto
 
 SOURCES = $(wildcard *.cpp)
 OBJS = $(SOURCES:%.cpp=%.o)
